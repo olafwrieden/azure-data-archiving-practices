@@ -128,7 +128,13 @@ Because the data is accessed frequently (in the first 2 months), a hot storage t
 
 We can lock access to blobs using Access Controls in
 
-## Data Lake vs. Blob Storage
+## Azure Data Lake Lifecycle Management
+
+### Defining Action Sets
+
+Similarly to our Blob Storage scenario, the `lastModified` property on a blob inside an Azure Data Lake can be used to trigger a series of action to move affected blobs to a different archive tier.
+
+[continue.. action sets + filter sets]
 
 [relate it back to archiving - to be written]
 ## Data Classification Levels

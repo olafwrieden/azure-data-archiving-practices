@@ -2,6 +2,9 @@
 
 **Purpose:** This resource is a a collection of practices for data archival and retention in [Microsoft Azure](https://azure.microsoft.com). This content is not officially endorsed by Microsoft and acts as a collection of learnings only.
 
+## Contributors
+![Contributors](https://contrib.rocks/image?repo=olafwrieden/azure-data-archiving-practices)
+
 ## Table of Contents
 
 - [Azure Storage Solutions](#)

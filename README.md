@@ -12,7 +12,7 @@
 - [Blob Lifecycle Management](#)
 - [Immutable Blobs & Retention Policies](#)
 - [Data Lake vs. Blob Storage](#)
-- [Data Classification Levels](#)
+- [Data Discover and Classification Levels](#)
 - [add your own topic]
 
 ## What are the Azure Storage Solutions?
@@ -139,9 +139,23 @@ Similarly to our Blob Storage scenario, the `lastModified` property on a blob in
 
 [continue.. action sets + filter sets]
 
-[relate it back to archiving - to be written]
-## Data Classification Levels
+[relate it back to archiving - to be written] (https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview)
+## Data Discovery and Classification Levels
+
+Data Discovery and Classification is built into Azure SQL Databases, Azure SQL Managed Instance and Azure Synapse Analytics. It provides basic capabilities for discovering, classifying, labelling and reporting sensitive data in datbases. 
+
+### 🤔 Scenario
+
+Your most sensistive data might include financial, healthcare, business or personal information (Passports, Drivers Licenses). Discovering and classifying this data is vital for any organisation to take on an information-protection approach.  
+
+Example usage scenarios for the using Data Discovery and Classification:
+
+- Meet standards for data privacy and requirements for regulatory compliance.
+- Security monitoring (auditing) and data loss protection.  
+- Controlling access to and hardening security of the databases that contain highly sensitive data. 
 
 [relate it back to archiving - to be written]
 
-# [add your own topic]
+# Azure Purview 
+
+Azure Purview will 

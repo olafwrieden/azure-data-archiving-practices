@@ -12,7 +12,8 @@
 - [Blob Lifecycle Management](#)
 - [Immutable Blobs & Retention Policies](#)
 - [Data Lake vs. Blob Storage](#)
-- [Data Discover and Classification Levels](#)
+- [add your own topic]
+- [Data Discovery and Classification Levels](#)
 - [add your own topic]
 
 ## What are the Azure Storage Solutions?

@@ -14,7 +14,7 @@
 - [Data Lake vs. Blob Storage](#)
 - [add your own topic]
 - [Data Discovery and Classification Levels](#)
-- [add your own topic]
+- [Azure Purview](#)
 
 ## What are the Azure Storage Solutions?
 

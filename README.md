@@ -169,7 +169,8 @@ The Azure Data Lake Storage Gen1 data source supports the following functionalit
 - Full and incremental scans to capture metadata and classification in Azure Data Lake Storage Gen1.
 - Lineage between data assets for ADF copy/dataflow activities.
 
-The following link will take you to the Microsoft documentation that outlines how to register Azure Data Lake Storage Gen2 as data source in Azure Purview and set up a scan. # - Link to ADLS Gen 2 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen2)
+The following link will take you to the Microsoft documentation that outlines how to register Azure Data Lake Storage Gen2 as data source in Azure Purview and set up a scan. 
+- Link to ADLS Gen 2 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen2)
 - Link to ADLS Gen 1 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen1)
 
 

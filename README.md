@@ -12,7 +12,6 @@
 - [Blob Lifecycle Management](#)
 - [Immutable Blobs & Retention Policies](#)
 - [Data Lake vs. Blob Storage](#)
-- [add your own topic]
 - [Data Discovery and Classification Levels](#)
 - [Azure Purview](#)
 
@@ -143,20 +142,35 @@ Similarly to our Blob Storage scenario, the `lastModified` property on a blob in
 [relate it back to archiving - to be written] (https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview)
 ## Data Discovery and Classification Levels
 
-Data Discovery and Classification is built into Azure SQL Databases, Azure SQL Managed Instance and Azure Synapse Analytics. It provides basic capabilities for discovering, classifying, labelling and reporting sensitive data in datbases. 
+
 
 ### 🤔 Scenario
 
-Your most sensistive data might include financial, healthcare, business or personal information (Passports, Drivers Licenses). Discovering and classifying this data is vital for any organisation to take on an information-protection approach.  
 
-Example usage scenarios for the using Data Discovery and Classification:
-
-- Meet standards for data privacy and requirements for regulatory compliance.
-- Security monitoring (auditing) and data loss protection.  
-- Controlling access to and hardening security of the databases that contain highly sensitive data. 
 
 [relate it back to archiving - to be written]
 
 # Azure Purview 
 
-Azure Purview will 
+Azure Purview is a unified data governance service that helps you manage and govern your on-premises, multicloud, and software-as-a-service (SaaS) data. Azure purview is Microsoft's data governance solution which helps you understand all data across your organisation. It's built on Apache Atlas, an open-source project for metadata management and governance for data assets.
+
+Before registering data sources, you will need to create an Azure Purview account. For more information on creating a Purview account, go to (https://docs.microsoft.com/en-us/azure/purview/create-catalog-portal) 
+
+## Register and scan Azure Blob Storage with Azure Purview
+
+Azure Blob Storage supports full and incremental scans to capture the metadata and schema. It also classifies the data automatically based on system and custom classification rules. 
+
+The following link will take you to the Microsoft document (how to register an Azure Blob Storage account in Purview and set up a scan).
+(https://docs.microsoft.com/en-us/azure/purview/register-scan-azure-blob-storage-source)
+
+## Register and scan Azure Data Lake Storage with Azure Purview 
+
+The Azure Data Lake Storage Gen1 data source supports the following functionality:
+- Full and incremental scans to capture metadata and classification in Azure Data Lake Storage Gen1.
+- Lineage between data assets for ADF copy/dataflow activities.
+
+The following link will take you to the Microsoft documentation that outlines how to register Azure Data Lake Storage Gen2 as data source in Azure Purview and set up a scan. # - Link to ADLS Gen 2 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen2)
+- Link to ADLS Gen 1 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen1)
+
+
+

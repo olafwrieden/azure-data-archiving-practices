@@ -163,15 +163,15 @@ Azure Blob Storage supports full and incremental scans to capture the metadata a
 The following link will take you to the Microsoft document (how to register an Azure Blob Storage account in Purview and set up a scan).
 (https://docs.microsoft.com/en-us/azure/purview/register-scan-azure-blob-storage-source)
 
-## Register and scan Azure Data Lake Storage with Azure Purview 
+## Register and scan Azure Data Lake Storage Gen1 and Gen2 with Azure Purview 
 
-The Azure Data Lake Storage Gen1 data source supports the following functionality:
-- Full and incremental scans to capture metadata and classification in Azure Data Lake Storage Gen1.
+The Azure Data Lake Storage Gen1 and Gen2 data source supports the following functionality:
+- Full and incremental scans to capture metadata and classification in Azure Data Lake Storage Gen1 and Gen2.
 - Lineage between data assets for ADF copy/dataflow activities.
 
 The following link will take you to the Microsoft documentation that outlines how to register Azure Data Lake Storage Gen2 as data source in Azure Purview and set up a scan. 
-- Link to ADLS Gen 2 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen2)
-- Link to ADLS Gen 1 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen1)
+- Link to ADLS Gen1 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen1)
+- Link to ADLS Gen2 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen2)
 
 
 

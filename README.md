@@ -16,6 +16,26 @@
 - [Data Discovery and Classification Levels](#)
 - [Azure Purview](#)
 
+## What do we want to archive?
+
+blob vs data lake storage, performance when interacting with the data, services, blob only supports blob api, ADLS hdfs endpoint + blob api supported.
+Management of objects -> change folder name in archive tier. In blob this is physical (copy data from one container to new one with new name). Moving files from one to another can intro failures + time consuming
+In ADLS this is instantaneous (meta data operation).
+
+Meta data tagging. Where did it come from? Properties -> Set metadata.
+ADF to archieve tag metadata.
+
+What are the SLAs for retrieving data from archive.
+define meta data processing, outline naming convension (containers, folders, files) + tags, how do I ensure that the data archived is the same as in source system - md5 hash, hash locally, hash in azure - azcopy..
+
+how do we safely delete source data,
+recommend small overlap,
+recover data in source system,
+flag as high-risk activity for archiving
+
+sep storage account for each classification.
+
+
 ## What are the Azure Storage Solutions?
 
 Provided for overview purposes, we will focus on *Blob Storage* and *Data Lake Storage* ([source](https://azure.microsoft.com/en-au/product-categories/storage/))

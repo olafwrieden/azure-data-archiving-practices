@@ -15,7 +15,7 @@
 - [Data Discovery and Classification Levels](#)
 - [Azure Purview](#)
 
-## What do we want to archive?
+## What do we want to archieve?
 
 blob vs data lake storage, performance when interacting with the data, services, blob only supports blob api, ADLS hdfs endpoint + blob api supported.
 Management of objects -> change folder name in archive tier. In blob this is physical (copy data from one container to new one with new name). Moving files from one to another can intro failures + time consuming

@@ -28,7 +28,7 @@ Management of objects -> change folder name in archive tier. In blob this is phy
 In ADLS this is instantaneous (meta data operation).
 
 Meta data tagging. Where did it come from? Properties -> Set metadata.
-ADF to archieve tag metadata.
+ADF to archive tag metadata.
 
 What are the SLAs for retrieving data from archive.
 define meta data processing, outline naming convension (containers, folders, files) + tags, how do I ensure that the data archived is the same as in source system - md5 hash, hash locally, hash in azure - azcopy..
@@ -114,6 +114,11 @@ Here are some differences you may find useful.
 
 - [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
 
+
+### WIP: Data Classification
+
+MI access via tool to allow requestor to access data (via SAS token). Do we archive the sensitive data or not?
+
 ## Intro to Data Tiering
 
 ### 🔥 Hot Access Tier
@@ -160,6 +165,16 @@ Adapted from: [Rehydrate blob data from the archive tier](https://docs.microsoft
 2. Copy an archive blob to an online tier.
 
 [to be written]
+
+
+#### WIP: How do users read data/request?
+
+Users submit data access request - made available. Power App to allow people to browse archive. Interfact with ADLS read out structured data or use storage explorer to interact with archive. Power BI report structured data. Interaction via API.
+
+Archive Manager's responsibility.
+Meta-data search on archive (inexpensive)
+
+
 
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-performance-tiers
 
@@ -213,9 +228,16 @@ Because the data is accessed frequently (in the first 2 months), a hot storage t
 
 👉 Find out more: [Data Lifecyle Management](https://azure.microsoft.com/en-us/blog/azure-blob-storage-lifecycle-management-now-generally-available/)
 
-## Immutable Blobs
+## WIP: Immutable Blobs
 
 We can lock access to blobs using Access Controls in
+
+Add lifecycle management - bank example 7 years.
+
+
+## WIP: Auditing
+
+Auditing the archive process - validate data has not been tampered with. Sensitive data. 100% correct.
 
 ## Azure Data Lake Lifecycle Management
 
@@ -233,7 +255,7 @@ Similarly to our Blob Storage scenario, the `lastModified` property on a blob in
 
 [relate it back to archiving - to be written]
 
-# Azure Purview
+## Azure Purview
 
 Azure Purview is a unified data governance service that helps you manage and govern your on-premises, multicloud, and software-as-a-service (SaaS) data. Azure purview is Microsoft's data governance solution which helps you understand all data across your organisation. It's built on Apache Atlas, an open-source project for metadata management and governance for data assets.
 

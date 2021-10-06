@@ -96,21 +96,23 @@ Provided for overview purposes, we will focus on _Blob Storage_ and _Data Lake S
 | [Azure Data Box](https://azure.microsoft.com/en-au/services/databox)                                        | Appliances and solutions for offline data transfer to Azure​                                                                                   |
 | [Microsoft Azure Confidential Ledger](https://azure.microsoft.com/en-au/services/azure-confidential-ledger) | Store unstructured data that is completely tamper-proof and can be cryptographically verified                                                  |
 
-## WIP: How do we decide the archiving destination?
+## How to decide the archiving destination?
 
-File storage archiving destination.
+In this example we will be using Azure Storage and ADLS Gen2 as the repository for our archive. You are advised not to use ADLS Gen1 for any new projects - it is a legacy service. There is a 5 Pb limit per Storage Account, we will be using Standard storage tier, not Premium storage tier (read about the [differences](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-performance-tiers)).
 
-In this example we will be using Azure Storage and ADLS Gen2 as the repository for our archive.
+Here are some differences you may find useful.
 
-TABLE!!! https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-comparison-with-blob-storage
+| Consideration                  | Azure Data Lake Storage Gen2                                                                                              | Azure Blob Storage                                                                                                                             |
+| :----------------------------- | :------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+| Structure                      | Hierarchical file system                                                                                                  | Object store with flat namespace                                                                                                               |
+| API                            | Works with both Blob and ADLS Gen2 APIs                                                                                   | Blob API only                                                                                                                                  |
+| Authentication & Authorization | Supports ACL and POSIX permissions, plus additional granularity specific to ADLS Gen2                                     | No granular access control                                                                                                                     |
+| Geo-redundancy                 | Locally redundant (multiple copies of data in one Azure region)                                                           | Locally redundant (LRS), zone redundant (ZRS), globally redundant (GRS), read-access globally redundant (RA-GRS)                               |
+| Encryption                     | Transparent, Server side <ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul> | Transparent, Server side<ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul>Client-side encryption |
 
-- Structure (gen 2 = hfs, flat name space in blob) add details
-- API (Storage: Blob API, vs ADLS: Blob and ADLS Gen 2 API)
-- Authentication & Authorization (POSIX ACL vs no granular support in blob), SAS, Account Keys - JIT access section digs deeper (access to archive for a day etc.)
+**WIP: Just-in-Time Archive Access**: What happens if we want to grant a user access to the archive or a section of the archive for specific period of time (eg. a day)? _discuss options for Access Keys, SAS tokens.._
+
 - [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
-- Encryption
-- 5 Pb per account - standard storage (not using premium)
-- Geo-redundancy ()
 
 ## Intro to Data Tiering
 

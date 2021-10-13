@@ -114,7 +114,6 @@ Here are some differences you may find useful.
 
 - [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
 
-
 ### WIP: Data Classification
 
 MI access via tool to allow requestor to access data (via SAS token). Do we archive the sensitive data or not?
@@ -166,17 +165,20 @@ Adapted from: [Rehydrate blob data from the archive tier](https://docs.microsoft
 
 [to be written]
 
+#### 🙋🏻‍♂️ Scenario: How do users request/read data?
 
-#### WIP: How do users read data/request?
+Requesting data to an archived file is a common practice and one which which may involve two actors, a requestor and an approver.
 
-Users submit data access request - made available. Power App to allow people to browse archive. Interfact with ADLS read out structured data or use storage explorer to interact with archive. Power BI report structured data. Interaction via API.
+##### The Idea
 
-Archive Manager's responsibility.
-Meta-data search on archive (inexpensive)
+Design a basic PowerApp internally, to interact with the Azure Data Lake Gen2 API to scan the archive file metadata (cheap as this doesn't involve reading the file contents). If a Meta-data search is applied to the archive using PowerApps' native connectors to Cognitive Search, this approach provides a powerful archive search capability.
 
+**Requestor:** The requestor uses the PowerApp to browse the archive. Once the requestor has located one or more files in the archive to which they would like to request access, a request for access is lodged via the PowerApp to one or more approvers whose responsibility it is to approve or deny the file access (via the PowerApp).
 
+**Approver:** Despite being allowed to approve/deny access requests, the approvers themselves cannot read or download the file(s) themselves. Approvers merely act as an approval gateway to permit read access to the files. If approved, the file(s) may now be downloaded or moved to an online tier until their
 
-https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-performance-tiers
+For structured data, this may be in the form of a Power BI report.
+The Archive Manager is responsible for facilitating access to the archive.
 
 ## Data Lifecycle Management (Blob Storage)
 
@@ -233,7 +235,6 @@ Because the data is accessed frequently (in the first 2 months), a hot storage t
 We can lock access to blobs using Access Controls in
 
 Add lifecycle management - bank example 7 years.
-
 
 ## WIP: Auditing
 

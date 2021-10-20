@@ -1,4 +1,4 @@
-# ![Banner](https://i.imgur.com/VlHw3qp.png)
+# ![Banner](https://i.imgur.com/VlHw3qp.png) 
 
 **Purpose:** This resource is a a collection of practices for data archival and retention in [Microsoft Azure](https://azure.microsoft.com). This content is not officially endorsed by Microsoft and acts as a collection of learnings only.
 

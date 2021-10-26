@@ -1,12 +1,16 @@
 # ![Banner](https://i.imgur.com/VlHw3qp.png) 
 
-**Purpose:** This resource is a a collection of practices for data archival and retention in [Microsoft Azure](https://azure.microsoft.com). This content is not officially endorsed by Microsoft and acts as a collection of learnings only.
+**Purpose:** This resource is a collection of questions to ask and practices to consider for data archival and retention in [Microsoft Azure](https://azure.microsoft.com). This content is not officially endorsed by Microsoft and acts as a collection of learnings only.
 
-**Definition of Archive:** Will only use Cool, Performance is not an important factor in an archive. ADLS vs Blob - security and APIs. This is not a performance convo.
+**Definition of Archive:** An archive is an accumulation of historical records – in any media – or the physical facility in which they are located. Archives contain primary source documents that have accumulated over the course of an individual or organization's lifetime, and are kept to show the function of that person or organization. Professional archivists and historians generally understand archives to be records that have been naturally and necessarily generated as a product of regular legal, commercial, administrative, or social activities. They have been metaphorically defined as "the secretions of an organism", and are distinguished from documents that have been consciously written or created to communicate a particular message to posterity.
 
-## Contributors
+In general, archives consist of records that have been selected for permanent or long-term preservation on grounds of their enduring cultural, historical, or evidentiary value. Archival records are normally unpublished and almost always unique, unlike books or magazines of which many identical copies may exist. This means that archives are quite distinct from libraries with regard to their functions and organization, although archival collections can often be found within library buildings.
 
-![Contributors](https://contrib.rocks/image?repo=olafwrieden/azure-data-archiving-practices)
+[Source](https://en.wikipedia.org/wiki/Archive)
+
+<!-- ## Contributors
+
+![Contributors](https://contrib.rocks/image?repo=olafwrieden/azure-data-archiving-practices) -->
 
 ## Table of Contents
 
@@ -17,29 +21,6 @@
 - [Data Lake vs. Blob Storage](#)
 - [Data Discovery and Classification Levels](#)
 - [Azure Purview](#)
-
-```text
-NOTES: IDEAS FOR THIS DOC
-
-What do we want to achieve?
-
-blob vs data lake storage, performance when interacting with the data, services, blob only supports blob api, ADLS hdfs endpoint + blob api supported.
-Management of objects -> change folder name in archive tier. In blob this is physical (copy data from one container to new one with new name). Moving files from one to another can intro failures + time consuming
-In ADLS this is instantaneous (meta data operation).
-
-Meta data tagging. Where did it come from? Properties -> Set metadata.
-ADF to archive tag metadata.
-
-What are the SLAs for retrieving data from archive.
-define meta data processing, outline naming convension (containers, folders, files) + tags, how do I ensure that the data archived is the same as in source system - md5 hash, hash locally, hash in azure - azcopy..
-
-how do we safely delete source data,
-recommend small overlap,
-recover data in source system,
-flag as high-risk activity for archiving
-
-sep storage account for each classification.
-```
 
 ## Ask.. Where is my data?
 
@@ -84,7 +65,7 @@ Similar to data in a file system, there should be a set of business rule that in
 
 ## What are the Azure Storage Solutions?
 
-Provided for overview purposes, we will focus on _Blob Storage_ and _Data Lake Storage_ ([source](https://azure.microsoft.com/en-au/product-categories/storage/))
+Provided for overview purposes only, we will focus on _Blob Storage_ and _Data Lake Storage_ ([source](https://azure.microsoft.com/en-au/product-categories/storage/))
 
 | Azure Product                                                                                               | Use it if you need..                                                                                                                           |
 | :---------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -110,9 +91,7 @@ Here are some differences you may find useful.
 | Geo-redundancy                 | Locally redundant (multiple copies of data in one Azure region)                                                           | Locally redundant (LRS), zone redundant (ZRS), globally redundant (GRS), read-access globally redundant (RA-GRS)                               |
 | Encryption                     | Transparent, Server side <ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul> | Transparent, Server side<ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul>Client-side encryption |
 
-**WIP: Just-in-Time Archive Access**: What happens if we want to grant a user access to the archive or a section of the archive for specific period of time (eg. a day)? _discuss options for Access Keys, SAS tokens.._
-
-- [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
+**Just-in-Time Archive Access**: What happens if we want to grant a user access to the archive or a section of the archive for specific period of time (eg. a day)? In Azure, we can leverage [Shared Access Signatures](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview) (preferred), or Access Keys. SAS provides secure delegated access to resources in your storage account, providing granular control over how data can be accessed. This includes what resources may be accessed, what permissions those resources can be accessed with, and for how long the SAS is valid.
 
 ### WIP: Data Classification
 
@@ -149,21 +128,13 @@ Example usage scenarios for the archive access tier include:
 
 Read more about storage tiering: [Storage Blob Tiers](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers)
 
-### What if we want to read from an Archive Tier?
-
-Adapted from: [Rehydrate blob data from the archive tier](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-rehydration)
+## How do I read from an Archive Tier?
 
 **Key message:** While a blob is in the archive access tier, it's considered offline and can't be read or modified. However, meta data is still online allowing us to list the blob and its properties.
 
 - Data in the archive access tier is stored offline. The archive tier offers the lowest storage costs but also the highest access costs and latency. [SLA for Storage](https://azure.microsoft.com/support/legal/sla/storage/v1_5/).
 - The hot and cool tiers support all redundancy options. The archive tier supports only LRS, GRS, and RA-GRS.
-
-#### Two Options for Accessing Archived Data
-
-1. Rehydate a blob to an online tier.
-2. Copy an archive blob to an online tier.
-
-[to be written]
+- Also see: [Rehydrating blob data from ab archive tier](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-rehydration).
 
 #### 🙋🏻‍♂️ Scenario: How do users request/read data?
 
@@ -173,12 +144,11 @@ Requesting data to an archived file is a common practice and one which which may
 
 Design a basic PowerApp internally, to interact with the Azure Data Lake Gen2 API to scan the archive file metadata (cheap as this doesn't involve reading the file contents). If a Meta-data search is applied to the archive using PowerApps' native connectors to Cognitive Search, this approach provides a powerful archive search capability.
 
+**Archivist:** An archivist is an information professional who assesses, collects, organizes, preserves, maintains control over records and archives determined to have long-term value. The records maintained by the archivist can consist of a variety of forms such as file systems and data stores.
+
 **Requestor:** The requestor uses the PowerApp to browse the archive. Once the requestor has located one or more files in the archive to which they would like to request access, a request for access is lodged via the PowerApp to one or more approvers whose responsibility it is to approve or deny the file access (via the PowerApp).
 
-**Approver:** Despite being allowed to approve/deny access requests, the approvers themselves cannot read or download the file(s) themselves. Approvers merely act as an approval gateway to permit read access to the files. If approved, the file(s) may now be downloaded or moved to an online tier until their
-
-For structured data, this may be in the form of a Power BI report.
-The Archive Manager is responsible for facilitating access to the archive.
+**Approver:** Despite being allowed to approve/deny access requests, the approvers themselves cannot read or download the file(s) themselves. Approvers merely act as an approval gateway to permit read access to the files. If approved, the file(s) may now be downloaded or moved to an online tier.
 
 ## Data Lifecycle Management (Blob Storage)
 
@@ -189,6 +159,8 @@ An insurance company stores data that they are required to hold on to for 7 year
 ### 💡 Conclusion
 
 Because the data is accessed frequently (in the first 2 months), a hot storage tier is best suited. Between 2-6 months of the last modification date, this data is best moved to a cool storage tier. Later, 7 years after its last modification date, the blob is then deleted as it has served its purpose and is no longer required.
+
+At the time of writing, this feature is still in preview in ADLS Gen2.
 
 #### 💪🏻 Implementation
 
@@ -232,9 +204,33 @@ Because the data is accessed frequently (in the first 2 months), a hot storage t
 
 ## WIP: Immutable Blobs
 
+Time-based, data must be stored for specified interval, can create and read but not deleted. After expiration, the data can be deleted but not overwritten.
+
+Legally 7-years, can hold on longer (up to you) can use to retain for 7 years.
+recognise advantage, can enable but don't have to. Think about it.
+
+Bank -retain for 7, supposed to delete after 7.
+
+Legal hold, stores until legal hold is cleared.
+
 We can lock access to blobs using Access Controls in
 
 Add lifecycle management - bank example 7 years.
+
+## WIP: Logging
+
+Azure Storage Analytics Logs. Who is creating / reading document.
+
+Mention it is in preview.
+https://docs.microsoft.com/en-us/azure/storage/common/storage-analytics-logging
+
+confidential, sensitive, internal only,
+
+offical, sensitive, protected, public
+
+high medium low none.
+
+- [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
 
 ## WIP: Auditing
 
@@ -250,33 +246,35 @@ Similarly to our Blob Storage scenario, the `lastModified` property on a blob in
 
 [relate it back to archiving - to be written] (https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview)
 
-## Data Discovery and Classification Levels
+## WIP: Data Discovery: Azure Purview
 
-### 🤔 Scenario
-
-[relate it back to archiving - to be written]
-
-## Azure Purview
+### 🔍 Introduction
 
 Azure Purview is a unified data governance service that helps you manage and govern your on-premises, multicloud, and software-as-a-service (SaaS) data. Azure purview is Microsoft's data governance solution which helps you understand all data across your organisation. It's built on Apache Atlas, an open-source project for metadata management and governance for data assets.
 
-Before registering data sources, you will need to create an Azure Purview account. For more information on creating a Purview account, go to (https://docs.microsoft.com/en-us/azure/purview/create-catalog-portal)
-
-## Register and scan Azure Blob Storage with Azure Purview
-
 Azure Blob Storage supports full and incremental scans to capture the metadata and schema. It also classifies the data automatically based on system and custom classification rules.
 
-The following link will take you to the Microsoft document (how to register an Azure Blob Storage account in Purview and set up a scan).
-(https://docs.microsoft.com/en-us/azure/purview/register-scan-azure-blob-storage-source)
+---
 
-## Register and scan Azure Data Lake Storage Gen1 and Gen2 with Azure Purview
+```text
+NOTES: IDEAS FOR THIS DOC
 
-The Azure Data Lake Storage Gen1 and Gen2 data source supports the following functionality:
+What do we want to achieve?
 
-- Full and incremental scans to capture metadata and classification in Azure Data Lake Storage Gen1 and Gen2.
-- Lineage between data assets for ADF copy/dataflow activities.
+blob vs data lake storage, performance when interacting with the data, services, blob only supports blob api, ADLS hdfs endpoint + blob api supported.
+Management of objects -> change folder name in archive tier. In blob this is physical (copy data from one container to new one with new name). Moving files from one to another can intro failures + time consuming
+In ADLS this is instantaneous (meta data operation).
 
-The following link will take you to the Microsoft documentation that outlines how to register Azure Data Lake Storage Gen2 as data source in Azure Purview and set up a scan.
+Meta data tagging. Where did it come from? Properties -> Set metadata.
+ADF to archive tag metadata.
 
-- Link to ADLS Gen1 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen1)
-- Link to ADLS Gen2 (https://docs.microsoft.com/en-us/azure/purview/register-scan-adls-gen2)
+What are the SLAs for retrieving data from archive.
+define meta data processing, outline naming convension (containers, folders, files) + tags, how do I ensure that the data archived is the same as in source system - md5 hash, hash locally, hash in azure - azcopy..
+
+how do we safely delete source data,
+recommend small overlap,
+recover data in source system,
+flag as high-risk activity for archiving
+
+sep storage account for each classification.
+```

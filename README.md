@@ -2,11 +2,18 @@
 
 **Purpose:** This resource is a collection of questions to ask and practices to consider for data archival and retention in [Microsoft Azure](https://azure.microsoft.com). This content is not officially endorsed by Microsoft and acts as a collection of learnings only.
 
-**Definition of Archive:** An archive is an accumulation of historical records – in any media – or the physical facility in which they are located. Archives contain primary source documents that have accumulated over the course of an individual or organization's lifetime, and are kept to show the function of that person or organization. Professional archivists and historians generally understand archives to be records that have been naturally and necessarily generated as a product of regular legal, commercial, administrative, or social activities. They have been metaphorically defined as "the secretions of an organism", and are distinguished from documents that have been consciously written or created to communicate a particular message to posterity.
+**Definition of Archive:** An archive is an accumulation of historical records – in any media – or the physical facility in which they are located. Archives contain primary source documents that have accumulated over the course of an individual or organization's lifetime, and are kept to show the function of that person or organization.
 
-In general, archives consist of records that have been selected for permanent or long-term preservation on grounds of their enduring cultural, historical, or evidentiary value. Archival records are normally unpublished and almost always unique, unlike books or magazines of which many identical copies may exist. This means that archives are quite distinct from libraries with regard to their functions and organization, although archival collections can often be found within library buildings.
+<details>
+  <summary>Expand Definition</summary>
+  
+  Professional archivists and historians generally understand archives to be records that have been naturally and necessarily generated as a product of regular legal, commercial, administrative, or social activities. They have been metaphorically defined as "the secretions of an organism", and are distinguished from documents that have been consciously written or created to communicate a particular message to posterity.
+  
+  In general, archives consist of records that have been selected for permanent or long-term preservation on grounds of their enduring cultural, historical, or evidentiary value. Archival records are normally unpublished and almost always unique, unlike books or magazines of which many identical copies may exist. This means that archives are quite distinct from libraries with regard to their functions and organization.
 
 [Source](https://en.wikipedia.org/wiki/Archive)
+
+</details>
 
 <!-- ## Contributors
 
@@ -212,7 +219,7 @@ Defining immutability policies allows organizations to comply with numerous indu
 
 #### 1️⃣ Time-based Retention Policies
 
- Store data for a specific interval. When set, objects can be created and read but not modified or deleted. Once expired, objects can be deleted but not overwritten.
+Store data for a specific interval. When set, objects can be created and read but not modified or deleted. Once expired, objects can be deleted but not overwritten.
 
 - Minimum duration: 1 day, Maximum: 146,000 days (400 years)
 
@@ -249,7 +256,6 @@ high medium low none.
 Each container with a time-based retention policy enabled provides a policy audit log. The audit log includes up to seven time-based retention commands for locked time-based retention policies. Log entries include the user ID, command type, time stamps, and retention interval. The audit log is retained for the lifetime of the policy, in accordance with the SEC 17a-4(f) regulatory guidelines. [Logs for Time-based retention policies](https://docs.microsoft.com/en-us/azure/storage/blobs/immutable-time-based-retention-policy-overview#audit-logging)
 
 Each container with a legal hold in effect provides a policy audit log. The log contains the user ID, command type, time stamps, and legal hold tags. The audit log is retained for the lifetime of the policy, in accordance with the SEC 17a-4(f) regulatory guidelines. [Logs for Legal Hold policies](https://docs.microsoft.com/en-us/azure/storage/blobs/immutable-legal-hold-overview#audit-logging)
-
 
 - [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
 

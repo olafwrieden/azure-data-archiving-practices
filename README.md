@@ -224,7 +224,7 @@ Store sensitive information that is critical to litigation or business use in a 
 
 Suppose you work for a bank that is legally required to hold data for at least seven years. You may already have processes and procedures in place to comply with these obligations.
 
-With the above listed examples of retention policies, you may recognise an advantage in enabling these optional set of tools at no additional cost. It may further prompt your organization to reflect:
+With the above listed examples of retention policies, you may recognise an advantage in enabling these optional set of tools at no additional cost. It may further prompt your organization to reflect on the following:
 
 - Do we currently have a compliant set of technologies to support data retention policies?
 - Could our existing data retention policies be strengthened?

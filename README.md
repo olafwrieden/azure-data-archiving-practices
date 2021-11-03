@@ -1,4 +1,4 @@
-# ![Banner](https://i.imgur.com/VlHw3qp.png) 
+# ![Banner](https://i.imgur.com/VlHw3qp.png)
 
 **Purpose:** This resource is a collection of questions to ask and practices to consider for data archival and retention in [Microsoft Azure](https://azure.microsoft.com). This content is not officially endorsed by Microsoft and acts as a collection of learnings only.
 
@@ -136,11 +136,11 @@ Read more about storage tiering: [Storage Blob Tiers](https://docs.microsoft.com
 - The hot and cool tiers support all redundancy options. The archive tier supports only LRS, GRS, and RA-GRS.
 - Also see: [Rehydrating blob data from ab archive tier](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-rehydration).
 
-#### 🙋🏻‍♂️ Scenario: How do users request/read data?
+### 🙋🏻‍♂️ Scenario: How do users request/read data?
 
 Requesting data to an archived file is a common practice and one which which may involve two actors, a requestor and an approver.
 
-##### The Idea
+#### The Idea
 
 Design a basic PowerApp internally, to interact with the Azure Data Lake Gen2 API to scan the archive file metadata (cheap as this doesn't involve reading the file contents). If a Meta-data search is applied to the archive using PowerApps' native connectors to Cognitive Search, this approach provides a powerful archive search capability.
 
@@ -202,33 +202,54 @@ At the time of writing, this feature is still in preview in ADLS Gen2.
 
 👉 Find out more: [Data Lifecyle Management](https://azure.microsoft.com/en-us/blog/azure-blob-storage-lifecycle-management-now-generally-available/)
 
-## WIP: Immutable Blobs
+## Data Retention & Tamper-Proofing
 
-Time-based, data must be stored for specified interval, can create and read but not deleted. After expiration, the data can be deleted but not overwritten.
+### ⛔ Immutable Blobs: How do we prevent file changes?
 
-Legally 7-years, can hold on longer (up to you) can use to retain for 7 years.
-recognise advantage, can enable but don't have to. Think about it.
+Immutable Blob Storage enables organizations and their users to store business-critical data in a WORM (Write Once, Read Many) state at no additional cost. One benefit of configuring immutability is the added protection against data modifications or deletions, particularly in healthcare, financial, and broker-dealer organizations. This extends to any user, even those with account administrative priviledges.
 
-Bank -retain for 7, supposed to delete after 7.
+Defining immutability policies allows organizations to comply with numerous industry regulations (incl. FINRA, SEC, CFTC) that call for tamper-proof storage of data. [Read more](https://azure.microsoft.com/en-au/blog/microsoft-azure-launches-tamper-proof-azure-immutable-blob-storage-for-financial-services/).
 
-Legal hold, stores until legal hold is cleared.
+#### 1️⃣ Time-based Retention Policies
 
-We can lock access to blobs using Access Controls in
+ Store data for a specific interval. When set, objects can be created and read but not modified or deleted. Once expired, objects can be deleted but not overwritten.
 
-Add lifecycle management - bank example 7 years.
+- Minimum duration: 1 day, Maximum: 146,000 days (400 years)
 
-## WIP: Logging
+#### 2️⃣ Legal Hold Policies
+
+Store sensitive information that is critical to litigation or business use in a tamper-proof state for the desired duration until the hold is removed. This feature is not limited only to legal use cases but can also be thought of as an event-based hold or an enterprise lock, where the need to protect data based on event triggers or corporate policy is required.
+
+#### 💭 Exercise: Reflecting on policies and logging
+
+Suppose you work for a bank that is legally required to hold data for at least seven years. You may already have processes and procedures in place to comply with these obligations.
+
+With the above listed examples of retention policies, you may recognise an advantage in enabling these optional set of tools at no additional cost. It may further prompt your organization to reflect:
+
+- Do we currently have a compliant set of technologies to support data retention policies?
+- Could our existing data retention policies be strengthened?
+- Could we benefit from better/automated logging when (and by whom) data is accessed?
+- How do our data retention policies extend into our archiving considerations?
+
+### WIP: Logging
 
 Azure Storage Analytics Logs. Who is creating / reading document.
 
 Mention it is in preview.
-https://docs.microsoft.com/en-us/azure/storage/common/storage-analytics-logging
+<https://docs.microsoft.com/en-us/azure/storage/common/storage-analytics-logging>
 
 confidential, sensitive, internal only,
 
 offical, sensitive, protected, public
 
 high medium low none.
+
+#### Immutable Blob Logs
+
+Each container with a time-based retention policy enabled provides a policy audit log. The audit log includes up to seven time-based retention commands for locked time-based retention policies. Log entries include the user ID, command type, time stamps, and retention interval. The audit log is retained for the lifetime of the policy, in accordance with the SEC 17a-4(f) regulatory guidelines. [Logs for Time-based retention policies](https://docs.microsoft.com/en-us/azure/storage/blobs/immutable-time-based-retention-policy-overview#audit-logging)
+
+Each container with a legal hold in effect provides a policy audit log. The log contains the user ID, command type, time stamps, and legal hold tags. The audit log is retained for the lifetime of the policy, in accordance with the SEC 17a-4(f) regulatory guidelines. [Logs for Legal Hold policies](https://docs.microsoft.com/en-us/azure/storage/blobs/immutable-legal-hold-overview#audit-logging)
+
 
 - [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
 
@@ -244,7 +265,7 @@ Similarly to our Blob Storage scenario, the `lastModified` property on a blob in
 
 [continue.. action sets + filter sets]
 
-[relate it back to archiving - to be written] (https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview)
+[relate it back to archiving - to be written] (<https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview>)
 
 ## WIP: Data Discovery: Azure Purview
 

@@ -67,6 +67,7 @@ Similar to data in a file system, there should be a set of business rule that in
 - What data storage engine is used? What is the source system / schema? For example: NoSQL vs Relational data stores like SQL Server or Oracle.
 - Is the data store encrypted?
 - Does the data store use row level security (RLS)?
+- Would it make sense to archive tabular data as *.parquet*?
 
 **⚡ Tip** When row level security is deployed, and the requirement exists to maintain it in the archive, data would be moved to a similar engine running at a lower performance tier and cost base which supports RLS.
 

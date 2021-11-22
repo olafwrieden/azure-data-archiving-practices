@@ -275,21 +275,15 @@ Each container with a time-based retention policy enabled provides a policy audi
 
 Each container with a legal hold in effect provides a policy audit log. The log contains the user ID, command type, time stamps, and legal hold tags. The audit log is retained for the lifetime of the policy, in accordance with the SEC 17a-4(f) regulatory guidelines. [Logs for Legal Hold policies](https://docs.microsoft.com/en-us/azure/storage/blobs/immutable-legal-hold-overview#audit-logging)
 
-- [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs)
+## A word on Data Classification
 
-## WIP: Auditing
+Question: Do we archive the sensitive data or not? Answer: It depends!
 
-Auditing the archive process - validate data has not been tampered with. Sensitive data. 100% correct.
+The decision to archive sensitive data or not is one only your business can decide, perhaps it is driven by regulations outside your immediate control.
 
-## Azure Data Lake Lifecycle Management
+- Do we currently utilise any data classification labels (e.g. Official, Sensitive, Protected, Private ..)?
 
-### Defining Action Sets
-
-Similarly to our Blob Storage scenario, the `lastModified` property on a blob inside an Azure Data Lake can be used to trigger a series of action to move affected blobs to a different archive tier.
-
-[continue.. action sets + filter sets]
-
-[relate it back to archiving - to be written] (<https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview>)
+**⚡ Tip** Think about archiving sensitive file system data to different Storage Accounts / Blob Storage Containers in Azure, such that records are organized by `high` `medium` `low` `none` sensitivity levels - allowing for access to be controlled at the highest level (the storage medium itself).
 
 ## WIP: Data Discovery: Azure Purview
 

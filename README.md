@@ -101,13 +101,14 @@ In this example we will be using Azure Storage and ADLS Gen2 as the repository f
 
 Here are some differences you may find useful.
 
-| Consideration                  | Azure Data Lake Storage Gen2                                                                                              | Azure Blob Storage                                                                                                                             |
-| :----------------------------- | :------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------- |
-| Structure                      | Hierarchical file system                                                                                                  | Object store with flat namespace                                                                                                               |
-| API                            | Works with both Blob and ADLS Gen2 APIs                                                                                   | Blob API only                                                                                                                                  |
-| Authentication & Authorization | Supports ACL and POSIX permissions, plus additional granularity specific to ADLS Gen2                                     | No granular access control                                                                                                                     |
-| Geo-redundancy                 | Locally redundant (multiple copies of data in one Azure region)                                                           | Locally redundant (LRS), zone redundant (ZRS), globally redundant (GRS), read-access globally redundant (RA-GRS)                               |
-| Encryption                     | Transparent, Server side <ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul> | Transparent, Server side<ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul>Client-side encryption |
+| Consideration                  | Azure Data Lake Storage Gen2                                                                                                           | Azure Blob Storage                                                                                                                                                                                                                                                                |
+| :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Structure                      | Hierarchical file system                                                                                                               | Object store with flat namespace                                                                                                                                                                                                                                                  |
+| API                            | Works with both Blob and ADLS Gen2 APIs                                                                                                | Blob API only                                                                                                                                                                                                                                                                     |
+| Authentication & Authorization | Supports ACL and POSIX permissions, plus additional granularity specific to ADLS Gen2                                                  | No granular access control                                                                                                                                                                                                                                                        |
+| Geo-redundancy                 | Locally redundant (multiple copies of data in one Azure region)                                                                        | Locally redundant (LRS), zone redundant (ZRS), globally redundant (GRS), read-access globally redundant (RA-GRS)                                                                                                                                                                  |
+| Encryption                     | Transparent, Server side <ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul>              | Transparent, Server side<ul><li>With service-managed keys</li><li>With customer-managed keys in Azure KeyVault</li></ul>Client-side encryption                                                                                                                                    |
+| Object Management              | In ADLS Gen2, if a folder name is updated (for example) this is a metadata operation that is instantaneous and does not move the data. | Changes to folder names (for example) are physical write operations that copy data from one container to the new container name. This additional data movement could introduce higher risks of data loss (during movement) and result in longer operation times as data is moved. |
 
 **Just-in-Time Archive Access**: What happens if we want to grant a user access to the archive or a section of the archive for specific period of time (eg. a day)? In Azure, we can leverage [Shared Access Signatures](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview) (preferred), or Access Keys. SAS provides secure delegated access to resources in your storage account, providing granular control over how data can be accessed. This includes what resources may be accessed, what permissions those resources can be accessed with, and for how long the SAS is valid.
 
@@ -298,22 +299,12 @@ Azure Blob Storage supports full and incremental scans to capture the metadata a
 ```text
 NOTES: IDEAS FOR THIS DOC
 
-What do we want to achieve?
-
-blob vs data lake storage, performance when interacting with the data, services, blob only supports blob api, ADLS hdfs endpoint + blob api supported.
-Management of objects -> change folder name in archive tier. In blob this is physical (copy data from one container to new one with new name). Moving files from one to another can intro failures + time consuming
-In ADLS this is instantaneous (meta data operation).
-
-Meta data tagging. Where did it come from? Properties -> Set metadata.
-ADF to archive tag metadata.
+Meta data tagging. Where did it come from? Properties -> Set metadata. Tool should support this. If not using Purview, highly recommend software adds metadata.
 
 What are the SLAs for retrieving data from archive.
 define meta data processing, outline naming convension (containers, folders, files) + tags, how do I ensure that the data archived is the same as in source system - md5 hash, hash locally, hash in azure - azcopy..
 
-how do we safely delete source data,
 recommend small overlap,
 recover data in source system,
 flag as high-risk activity for archiving
-
-sep storage account for each classification.
 ```

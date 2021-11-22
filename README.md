@@ -14,6 +14,13 @@
 [Source](https://en.wikipedia.org/wiki/Archive)
 
 </details>
+<br />
+
+**Why do organizations archive?**
+
+* Performance: To alleviate performance issues (e.g. reducing table locking or offloading processing)
+* Cost: Reduce costs to operational and analytical platforms
+* Operational Alignment: To facilitate business requirements (e.g. reducing backup or restore times for critical business data sets)
 
 <!-- ## Contributors
 
@@ -48,6 +55,8 @@ As we think about archiving this type of data. We should develop a set of busine
 - What is the file type? We might only want to archive _.docx_ or ignore any _.py_ files.
 - Are the files encrypted?
 
+**⚡ Tip** Where possible, archive data in a compressed file format (e.g. avro, parquet, gzip).
+
 **⚡ Tip** Ultimately, it is the responsibility of the data owner to classify the file appropriately.
 
 Depending on the nature of these files, a combination of business rules may need to be met before deeming the file fit for archiving. For example: A file may not have been accessed in while, but when it is required, it must be available without delay. In this scenario, perhaps we check if a custom tag (e.g. "no-archive") is present, and then ignore this file.
@@ -67,7 +76,8 @@ Similar to data in a file system, there should be a set of business rule that in
 - What data storage engine is used? What is the source system / schema? For example: NoSQL vs Relational data stores like SQL Server or Oracle.
 - Is the data store encrypted?
 - Does the data store use row level security (RLS)?
-- Would it make sense to archive tabular data as *.parquet*?
+
+**⚡ Tip** Where possible, archive data in a compressed file format (e.g. avro, parquet, gzip).
 
 **⚡ Tip** When row level security is deployed, and the requirement exists to maintain it in the archive, data would be moved to a similar engine running at a lower performance tier and cost base which supports RLS.
 

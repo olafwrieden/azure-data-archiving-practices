@@ -18,9 +18,9 @@
 
 **Why do organizations archive?**
 
-* Performance: To alleviate performance issues (e.g. reducing table locking or offloading processing)
-* Cost: Reduce costs to operational and analytical platforms
-* Operational Alignment: To facilitate business requirements (e.g. reducing backup or restore times for critical business data sets)
+- Performance: To alleviate performance issues (e.g. reducing table locking or offloading processing)
+- Cost: Reduce costs to operational and analytical platforms
+- Operational Alignment: To facilitate business requirements (e.g. reducing backup or restore times for critical business data sets)
 
 <!-- ## Contributors
 
@@ -111,10 +111,6 @@ Here are some differences you may find useful.
 
 **Just-in-Time Archive Access**: What happens if we want to grant a user access to the archive or a section of the archive for specific period of time (eg. a day)? In Azure, we can leverage [Shared Access Signatures](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview) (preferred), or Access Keys. SAS provides secure delegated access to resources in your storage account, providing granular control over how data can be accessed. This includes what resources may be accessed, what permissions those resources can be accessed with, and for how long the SAS is valid.
 
-### WIP: Data Classification
-
-MI access via tool to allow requestor to access data (via SAS token). Do we archive the sensitive data or not?
-
 ## Intro to Data Tiering
 
 ### 🔥 Hot Access Tier
@@ -167,6 +163,17 @@ Design a basic PowerApp internally, to interact with the Azure Data Lake Gen2 AP
 **Requestor:** The requestor uses the PowerApp to browse the archive. Once the requestor has located one or more files in the archive to which they would like to request access, a request for access is lodged via the PowerApp to one or more approvers whose responsibility it is to approve or deny the file access (via the PowerApp).
 
 **Approver:** Despite being allowed to approve/deny access requests, the approvers themselves cannot read or download the file(s) themselves. Approvers merely act as an approval gateway to permit read access to the files. If approved, the file(s) may now be downloaded or moved to an online tier.
+
+## Archive Integrity: How do we safely delete source data?
+
+A key question in the archiving equation is that of safely deleting source data. All too often the business worries (and rightfully so) about deleting the all important source data once it has been archived in the target destination.
+
+An organization should have a documented reconciliation process in place to remove data from source systems. Part of this process should include an integrity verification step that checks whether the data written to the destination has the same "checksum" as the source data.
+Checking for archive integrity during the archiving phase, provides piece of mind to the organization and its IT staff that a good copy of the data now exists in the archive. Thus allowing for the safe deletion of the source data.
+
+**⚡ Tip** The Azure Copy `azcopy` command uses MD5 hashes to validate data integrity at the destination.
+
+**⚡ Tip** If the risk of source data deletions is too great, you may decide not to delete the source data at all. This is however highly dependent on the organizational context.
 
 ## Data Lifecycle Management (Blob Storage)
 

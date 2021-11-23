@@ -290,3 +290,7 @@ The decision to archive sensitive data or not is one only your business can deci
 Azure Blob Storage supports full and incremental scans to capture the metadata and schema. It also classifies the data automatically based on system and custom classification rules. Purview can scan data from a large variety of sources and cloud providers to allow for an interactive enterprise data exploration, data discovery, and classification.
 
 ![Purview Overview](https://azurecomcdn.azureedge.net/cvt-77f94256f1c090f65c1a7a723791f2b6776f142767230e7a53a61deadacd009a/images/page/services/purview/unified.png)
+
+## What are your thoughts?
+
+We hope this guide ignites thoughtful conversations across your business with respect to data archiving. We welcome any feedback or and collaboration via Pull Requests. 🥳

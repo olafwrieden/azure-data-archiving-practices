@@ -169,6 +169,8 @@ Design a basic PowerApp internally, to interact with the Azure Data Lake Gen2 AP
 
 A key question in the archiving equation is that of safely deleting source data. All too often the business worries (and rightfully so) about deleting the all important source data once it has been archived in the target destination.
 
+It is advisable to retain a small overlap between when the data was archived and when the source data is deleted. This applied particularly to high-risk records.
+
 An organization should have a documented reconciliation process in place to remove data from source systems. Part of this process should include an integrity verification step that checks whether the data written to the destination has the same "checksum" as the source data.
 Checking for archive integrity during the archiving phase, provides piece of mind to the organization and its IT staff that a good copy of the data now exists in the archive. Thus allowing for the safe deletion of the source data.
 
@@ -257,20 +259,13 @@ With the above listed examples of retention policies, you may recognise an advan
 - Could we benefit from better/automated logging when (and by whom) data is accessed?
 - How do our data retention policies extend into our archiving considerations?
 
-### WIP: Logging
+## Logging & Auditing
 
-Azure Storage Analytics Logs. Who is creating / reading document.
+It is good practice to log all DML requests to the archive! It is highly recommended that access to all sensitive data should be logged (and many services in Azure already support logging). From a compliance perspective, logging read activities allows the organization to build a more coherent picture of the archive access.
 
-Mention it is in preview.
-<https://docs.microsoft.com/en-us/azure/storage/common/storage-analytics-logging>
+To learn more, read about [Data Ops for Auditing](https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-diagnostic-logs) and [Azure Storage Analytics Logs](https://docs.microsoft.com/en-us/azure/storage/common/storage-analytics-logging).
 
-confidential, sensitive, internal only,
-
-offical, sensitive, protected, public
-
-high medium low none.
-
-#### Immutable Blob Logs
+### Logging for Immutable Blobs
 
 Each container with a time-based retention policy enabled provides a policy audit log. The audit log includes up to seven time-based retention commands for locked time-based retention policies. Log entries include the user ID, command type, time stamps, and retention interval. The audit log is retained for the lifetime of the policy, in accordance with the SEC 17a-4(f) regulatory guidelines. [Logs for Time-based retention policies](https://docs.microsoft.com/en-us/azure/storage/blobs/immutable-time-based-retention-policy-overview#audit-logging)
 
@@ -286,25 +281,12 @@ The decision to archive sensitive data or not is one only your business can deci
 
 **⚡ Tip** Think about archiving sensitive file system data to different Storage Accounts / Blob Storage Containers in Azure, such that records are organized by `high` `medium` `low` `none` sensitivity levels - allowing for access to be controlled at the highest level (the storage medium itself).
 
-## WIP: Data Discovery: Azure Purview
+## Data Discovery and Beyond: Azure Purview
 
 ### 🔍 Introduction
 
-Azure Purview is a unified data governance service that helps you manage and govern your on-premises, multicloud, and software-as-a-service (SaaS) data. Azure purview is Microsoft's data governance solution which helps you understand all data across your organisation. It's built on Apache Atlas, an open-source project for metadata management and governance for data assets.
+[Azure Purview](https://azure.microsoft.com/en-au/services/purview) is a unified data governance service that helps you manage and govern your on-premises, multicloud, and software-as-a-service (SaaS) data. Azure purview is Microsoft's data governance solution which helps you understand all data across your organisation. It's built on Apache Atlas, an open-source project for metadata management and governance for data assets.
 
-Azure Blob Storage supports full and incremental scans to capture the metadata and schema. It also classifies the data automatically based on system and custom classification rules.
+Azure Blob Storage supports full and incremental scans to capture the metadata and schema. It also classifies the data automatically based on system and custom classification rules. Purview can scan data from a large variety of sources and cloud providers to allow for an interactive enterprise data exploration, data discovery, and classification.
 
----
-
-```text
-NOTES: IDEAS FOR THIS DOC
-
-Meta data tagging. Where did it come from? Properties -> Set metadata. Tool should support this. If not using Purview, highly recommend software adds metadata.
-
-What are the SLAs for retrieving data from archive.
-define meta data processing, outline naming convension (containers, folders, files) + tags, how do I ensure that the data archived is the same as in source system - md5 hash, hash locally, hash in azure - azcopy..
-
-recommend small overlap,
-recover data in source system,
-flag as high-risk activity for archiving
-```
+![Purview Overview](https://azurecomcdn.azureedge.net/cvt-77f94256f1c090f65c1a7a723791f2b6776f142767230e7a53a61deadacd009a/images/page/services/purview/unified.png)

@@ -28,13 +28,16 @@
 
 ## Table of Contents
 
+- [Where is my data?]()
 - [Azure Storage Solutions](#)
+- [Deciding the Archiving Solution]()
 - [Intro to Data Tiering](#)
+- [Reading from an Archive Tier]()
+- [Archive Integrity]()
 - [Blob Lifecycle Management](#)
-- [Immutable Blobs & Retention Policies](#)
-- [Data Lake vs. Blob Storage](#)
-- [Data Discovery and Classification Levels](#)
-- [Azure Purview](#)
+- [Data Retention & Tamper-Proofing]()
+- [Logging & Auditing]()
+- [Azure Purview and Beyond](#)
 
 ## Ask.. Where is my data?
 
